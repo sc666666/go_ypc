@@ -1,14 +1,21 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"go_ypc/bootstrap"
+	"go_ypc/config"
+)
+
+//go:generate echo arch=$GOARCH os=$GOOS pkg=$GOPACKAGE file=$GOFILE line=$GOLINE
+
+// 初始化配置信息
+func init() {
+	config.Initialize()
+}
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
+	// 设置应用引导服务
+	r := bootstrap.SetupApp()
 
+	// 监听并在 .env 配置的端口上启动服务
+	_ = r.Run(config.GetAppPort())
 }
