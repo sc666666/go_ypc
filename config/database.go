@@ -32,7 +32,7 @@ func init() {
 		"redis": map[string]interface{}{
 			"default": map[string]interface{}{
 				"host":     config.Env("REDIS_HOST", "127.0.0.1"),
-				"password": config.Env("REDIS_PASSWORD", nil),
+				"password": config.Env("REDIS_PASSWORD", ""),
 				"port":     config.Env("REDIS_PORT", "6379"),
 				"database": config.Env("REDIS_DB", "0"),
 			},

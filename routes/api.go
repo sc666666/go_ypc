@@ -15,6 +15,7 @@ func RegisterApiRoutes(r *gin.Engine) {
 		v1.GET("/getHomeCate", homeCateEndpoint.GetHomeCate)
 		v1.GET("/homeCateFirst", homeCateEndpoint.Index)
 		v1.GET("/homeCate/:id", homeCateEndpoint.Show)
+		v1.GET("/testRedis", homeCateEndpoint.TestRedis)
 
 	}
 }
