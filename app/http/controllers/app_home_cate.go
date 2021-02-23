@@ -47,5 +47,5 @@ func (*HomeCate) TestRedis(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("testKey:", val)
+	fmt.Println("testKey :", val)
 }
