@@ -12,3 +12,22 @@ func GetInfoById(id interface{}) (AppHomeCate, error) {
 
 	return appHomeCate, nil
 }
+
+// 查询所有数据
+//func (d *Dao) QueryHuman() (list []*model.HumanStats, err error) {
+//	if err = d.db.Find(&list); err != nil {
+//		return
+//	}
+//	return
+//}
+
+func GetInfo() (AppHomeCate, error) {
+	var appHomeCate AppHomeCate
+
+	if err := model.DB.Find(&appHomeCate).Error; err != nil {
+		return appHomeCate, err
+	}
+
+	return appHomeCate, nil
+}
+

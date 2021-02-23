@@ -12,7 +12,8 @@ func RegisterApiRoutes(r *gin.Engine) {
 	v1 := r.Group("/v1").Use(middleware.AddTraceId())
 	{
 		homeCateEndpoint := new(controllers.HomeCate)
-		v1.GET("/homeCate", homeCateEndpoint.Index)
+		v1.GET("/getHomeCate", homeCateEndpoint.GetHomeCate)
+		v1.GET("/homeCateFirst", homeCateEndpoint.Index)
 		v1.GET("/homeCate/:id", homeCateEndpoint.Show)
 
 	}

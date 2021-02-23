@@ -12,6 +12,11 @@ type HomeCate struct {
 // 列表
 func (*HomeCate) Index(c *gin.Context) {
 
+	data, err := app_home_cate.GetInfo()
+	if err != nil {
+
+	}
+	response.Ok(data, c)
 }
 
 // 详情
@@ -25,3 +30,11 @@ func (*HomeCate) Show(c *gin.Context) {
 
 	response.Ok(data, c)
 }
+
+
+func (*HomeCate) GetHomeCate(c *gin.Context) {
+
+}
+
+
+
