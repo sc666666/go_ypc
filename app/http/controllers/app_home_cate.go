@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"go_ypc/app/http/requests"
 	"go_ypc/app/models/app_home_cate"
 	"go_ypc/pkg/model"
 	"go_ypc/pkg/response"
@@ -48,4 +49,10 @@ func (*HomeCate) TestRedis(c *gin.Context) {
 		panic(err)
 	}
 	fmt.Println("testKey :", val)
+}
+
+func (*HomeCate) TestCreate(c *gin.Context) {
+	form := requests.ValidateHomeCate(c)
+	fmt.Println(form.Title)
+	// app_home_cate2.ValidateStruct(c)
 }
