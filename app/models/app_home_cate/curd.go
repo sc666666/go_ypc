@@ -1,6 +1,9 @@
 package app_home_cate
 
-import "go_ypc/pkg/model"
+import (
+	"fmt"
+	"go_ypc/pkg/model"
+)
 
 // 通过 ID 查询
 func GetInfoById(id interface{}) (AppHomeCate, error) {
@@ -14,20 +17,51 @@ func GetInfoById(id interface{}) (AppHomeCate, error) {
 }
 
 // 查询所有数据
-//func (d *Dao) QueryHuman() (list []*model.HumanStats, err error) {
-//	if err = d.db.Find(&list); err != nil {
-//		return
-//	}
-//	return
-//}
-
-func GetInfo() (AppHomeCate, error) {
-	var appHomeCate AppHomeCate
-
-	if err := model.DB.Find(&appHomeCate).Error; err != nil {
-		return appHomeCate, err
+func GetInfo(size int, page int) (map[string]interface{}, error) {
+	var appHomeCate []AppHomeCate
+	var count int64
+	model.DB.Find(&appHomeCate).Count(&count) //总行数
+	fmt.Print(count)
+	if err := model.DB.Offset((page-1)*size).Limit(size).Find(&appHomeCate).Error; err != nil {
+		return nil, err
 	}
-
-	return appHomeCate, nil
+	return map[string]interface{}{
+		"homeCate":appHomeCate,
+		"total":count,
+	} , nil
 }
 
+// 创建数据
+func CreateInfo(appHomeCate *AppHomeCate) (map[string]interface{}, error) {
+	if err := model.DB.Create(&appHomeCate).Error; err != nil {
+		return nil, err
+	}
+	return map[string]interface{}{
+		"data": appHomeCate,
+	} , nil
+}
+
+// 更新数据
+func SaveInfo(appHomeCate *AppHomeCate, id int) (map[string]interface{}, error) {
+
+
+	if err := model.DB.Where("id = ?", id).First(&appHomeCate).Error; err != nil {
+		return nil, err
+	} else {
+		if err := model.DB.Save(&appHomeCate).Error; err != nil {
+			return nil, err
+		}
+
+		return map[string]interface{}{
+			"data": appHomeCate,
+		} , nil
+	}
+
+
+	//if err := model.DB.Save(&appHomeCate).Error; err != nil {
+	//	return nil, err
+	//}
+	//return map[string]interface{}{
+	//	"data": appHomeCate,
+	//} , nil
+}

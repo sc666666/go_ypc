@@ -8,15 +8,15 @@ import (
 type AppHomeCate struct {
 	models.BaseModel
 
-	Title     string
-	Subtitle  string
-	Cate      uint64
-	Sort      uint64
-	Status    uint64
+	Title     string `json:"title" form:"title"`
+	Subtitle  string `json:"subtitle"`
+	Cate      uint64 `json:"cate"`
+	Sort      uint64 `json:"sort"`
+	Status    uint64 `json:"status"`
 	CreatedAt time.Time
-	CreatedBy string
+	CreatedBy string `json:"createdBy"`
 	UpdatedAt time.Time
-	UpdatedBy string
+	UpdatedBy string `json:"updatedBy"`
 }
 
 func (AppHomeCate) TableName() string {
