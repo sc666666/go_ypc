@@ -25,3 +25,9 @@ func BadRequest(data interface{}, c *gin.Context) {
 	msg := "请求失败"
 	response(http.StatusBadRequest, msg, data, c)
 }
+
+// 返回 422
+func UnprocessableEntity(data interface{}, c *gin.Context) {
+	msg := "请求参数验证失败"
+	response(http.StatusUnprocessableEntity, msg, data, c)
+}
