@@ -54,30 +54,28 @@ func (h *HomeCate) Create(c *gin.Context) {
 }
 
 //更新数据
-//func (h *HomeCate) Update(c *gin.Context) {
-//	id := c.Param("id")
-//	var appHomeCate app_home_cate.AppHomeCate
-//	err := c.ShouldBindJSON(&appHomeCate)
-//
-//	data, err := app_home_cate.SaveInfo(&appHomeCate, id)
-//	if err != nil {
-//
-//	}
-//
-//	response.Ok(data, c)
-//}
+func (h *HomeCate) Update(c *gin.Context) {
+	id := c.Param("id")
+	var appHomeCate app_home_cate.AppHomeCate
+	err := c.ShouldBindJSON(&appHomeCate)
 
-////删除数据
-//func (*HomeCate) Delete(c *gin.Context) {
-//	id := c.Param("id")
-//
-//	data, err := app_home_cate.GetInfo(size, page)
-//	if err != nil {
-//
-//	}
-//
-//	response.Ok(data, c)
-//}
+	data, err := app_home_cate.SaveInfo(&appHomeCate, id)
+	if err != nil {
+
+	}
+
+	response.Ok(data, c)
+}
+
+//删除数据
+func (*HomeCate) Delete(c *gin.Context) {
+	id := c.Param("id")
+	data, err := app_home_cate.DeleteById(id)
+	if err != nil {
+
+	}
+	response.Ok(data, c)
+}
 
 func (*HomeCate) TestRedis(c *gin.Context) {
 	err := model.RDB.Set(model.CTX, "testKey", "testValue", 0).Err()

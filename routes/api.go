@@ -15,6 +15,8 @@ func RegisterApiRoutes(r *gin.Engine) {
 		v1.GET("/getHomeCate", homeCateEndpoint.Index)
 		v1.GET("/homeCate/:id", homeCateEndpoint.Show)
 		v1.POST("/createHomeCate", homeCateEndpoint.Create)
+		v1.POST("/updateHomeCate/:id", homeCateEndpoint.Update)
+		v1.POST("/deleteById/:id", homeCateEndpoint.Delete)
 		v1.GET("/testRedis", homeCateEndpoint.TestRedis)
 		v1.POST("/testCreate", homeCateEndpoint.TestCreate)
 

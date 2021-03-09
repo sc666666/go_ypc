@@ -38,30 +38,40 @@ func CreateInfo(appHomeCate *AppHomeCate) (map[string]interface{}, error) {
 	}
 	return map[string]interface{}{
 		"data": appHomeCate,
+		"msg": "创建成功",
 	} , nil
 }
 
 // 更新数据
-func SaveInfo(appHomeCate *AppHomeCate, id int) (map[string]interface{}, error) {
-
-
-	if err := model.DB.Where("id = ?", id).First(&appHomeCate).Error; err != nil {
+func SaveInfo(appHomeCate *AppHomeCate, id interface{}) (map[string]interface{}, error) {
+	if err := model.DB.First(&appHomeCate, id).Error; err != nil {
+	//if err := model.DB.Where("id = ?", id).First(&appHomeCate).Error; err != nil {
+		fmt.Println(err)
 		return nil, err
 	} else {
 		if err := model.DB.Save(&appHomeCate).Error; err != nil {
 			return nil, err
 		}
-
 		return map[string]interface{}{
 			"data": appHomeCate,
+			"msg": "更新成功",
 		} , nil
 	}
+}
 
-
-	//if err := model.DB.Save(&appHomeCate).Error; err != nil {
-	//	return nil, err
-	//}
-	//return map[string]interface{}{
-	//	"data": appHomeCate,
-	//} , nil
+// 删除数据
+func DeleteById(id interface{}) (map[string]interface{}, error) {
+	var appHomeCate AppHomeCate
+	if err := model.DB.First(&appHomeCate, id).Error; err != nil {
+		fmt.Println(err)
+		return nil, err
+	} else {
+		if err := model.DB.Delete(&appHomeCate, id).Error; err != nil {
+			return nil, err
+		}
+		return map[string]interface{}{
+			"data": appHomeCate,
+			"msg": "删除成功",
+		} , nil
+	}
 }
