@@ -14,11 +14,13 @@ type HomeCate struct {
 }
 
 // 列表
-func (*HomeCate) Index(c *gin.Context) {
+func (h *HomeCate) Index(c *gin.Context) {
 	size, err := strconv.Atoi(c.DefaultQuery("size", "10"))
 	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
+	title := c.Query("title")
+	subTitle := c.Query("subTitle")
 
-	data, err := app_home_cate.GetInfo(size, page)
+	data, err := app_home_cate.GetInfo(size, page, title, subTitle)
 	if err != nil {
 
 	}

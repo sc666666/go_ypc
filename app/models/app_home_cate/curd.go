@@ -17,12 +17,28 @@ func GetInfoById(id interface{}) (AppHomeCate, error) {
 }
 
 // 查询所有数据
-func GetInfo(size int, page int) (map[string]interface{}, error) {
+func GetInfo(size int, page int, title string, subtitle string) (map[string]interface{}, error) {
 	var appHomeCate []AppHomeCate
+	//var cateData AppHomeCate
 	var count int64
-	model.DB.Find(&appHomeCate).Count(&count) //总行数
+	db := model.DB
+
+	fmt.Print(title)
+	//可以绑定参数不需要传参搜索
+	//if cateData.Title != "" {
+	if title != "" {
+		db = db.Where("title = ?", title)
+	}
+	if subtitle != "" {
+		db = db.Where("subtitle = ?", subtitle)
+	}
+
+	db.Find(&appHomeCate).Count(&count) //总行数
+	//model.DB.Find(&appHomeCate).Count(&count) //总行数
 	fmt.Print(count)
-	if err := model.DB.Offset((page-1)*size).Limit(size).Find(&appHomeCate).Error; err != nil {
+	//不带条件分页查询
+	if err := db.Offset((page-1)*size).Limit(size).Find(&appHomeCate).Error; err != nil {
+	//if err := model.DB.Offset((page-1)*size).Limit(size).Find(&appHomeCate).Error; err != nil {
 		return nil, err
 	}
 	return map[string]interface{}{
